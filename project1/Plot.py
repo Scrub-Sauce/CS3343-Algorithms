@@ -1,5 +1,6 @@
 from Point import Point
 import matplotlib.pyplot as plt
+import sys
 
 
 class Plot:
@@ -12,7 +13,7 @@ class Plot:
             raise Exception("Plot is a singleton and can only be initiated once")
         Plot._instance = self
 
-    # Get Singleton
+    # Get Plot Singleton
     @staticmethod
     def get_plot_instance():
         if Plot._instance is None:
@@ -41,12 +42,16 @@ class Plot:
 
     # Populate - Populated the scatter plot from the CSV provided.
     def populate(self, filename):
-        with open(filename) as file:
-            rows = file.readlines()
-            for row in rows:
-                coordinates = row.split(',')
-                tmp_point = Point(float(coordinates[0]), float(coordinates[1].strip('\n')))
-                self.get_points().append(tmp_point)
+        try:
+            with open(filename) as file:
+                rows = file.readlines()
+                for row in rows:
+                    coordinates = row.split(',')
+                    tmp_point = Point(float(coordinates[0]), float(coordinates[1].strip('\n')))
+                    self.get_points().append(tmp_point)
+        except FileNotFoundError:
+            sys.stderr.write("Error: The file '{}' does not exist. The file must be in the same directory as 'main.py'".format(filename))
+            sys.exit(1)
 
     # Create Scatter Plot
     def create_scatter_plot(self):
