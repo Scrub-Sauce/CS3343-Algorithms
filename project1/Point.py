@@ -20,7 +20,7 @@ class Point:
 
     # String Override
     def __str__(self):
-        return "Point: {}, {}".format(self.get_x(), self.get_y())
+        return "Point: ({}, {})".format(self.get_x(), self.get_y())
 
 
 

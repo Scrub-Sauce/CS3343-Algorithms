@@ -1,5 +1,3 @@
-# MATPLOTLIB IS A PYTHON 2 LIBRARY!!!
-
 import matplotlib.pyplot as plt
 import os
 

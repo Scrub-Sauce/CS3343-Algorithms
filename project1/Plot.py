@@ -1,4 +1,5 @@
 from Point import Point
+import matplotlib.pyplot as plt
 
 
 class Plot:
@@ -6,7 +7,6 @@ class Plot:
 
     def __init__(self):
         self._points = []
-        self._lines = []
         self._convex_hull = []
         if Plot._instance is not None:
             raise Exception("Plot is a singleton and can only be initiated once")
@@ -45,18 +45,25 @@ class Plot:
             rows = file.readlines()
             for row in rows:
                 coordinates = row.split(',')
-                tmp_point = Point(coordinates[0], coordinates[1])
+                tmp_point = Point(float(coordinates[0]), float(coordinates[1].strip('\n')))
                 self.get_points().append(tmp_point)
+
+    # Create Scatter Plot
+    def create_scatter_plot(self):
+        plt.scatter([point._x for point in self.get_points()], [point._y for point in self.get_points()])
+        plt.plot([point._x for point in self.get_convex_hull()], [point._y for point in self.get_convex_hull()])
+        plt.show()
+
+    # Find Convex Hull
+    def find_convex_hull(self):
+        return
 
     # String Override
     def __str__(self):
         ret = 'Scatter Plot\n----------------------------------\nPoints\n----------------------------------\n'
         for point in self.get_points():
-            ret += "{}".format(point)
-        ret += "----------------------------------\nLines\n----------------------------------\n"
-        for line in self.get_lines():
-            ret += "{}".format(line)
+            ret += "{}\n".format(point)
         ret += "----------------------------------\nConvex Hull Points\n----------------------------------\n"
         for point in self.get_convex_hull():
-            ret += "{}".format(point)
+            ret += "{}\n".format(point)
         return ret
