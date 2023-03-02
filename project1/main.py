@@ -1,11 +1,9 @@
+from Plot import Plot
 from Point import Point
 from Line import Line
 
 if __name__ == "__main__":
-    firstPoint = Point(5, 2)
-    secondPoint = Point(3, 4)
-    myLine = Line(firstPoint, secondPoint)
+    scatter_plot = Plot.get_plot_instance()
+    scatter_plot.populate("input.csv")
 
-    print(myLine)
-
-
+    print(scatter_plot)
