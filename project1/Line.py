@@ -35,7 +35,7 @@ class Line:
 
     def set_slope(self):
         if self.get_is_vertical():
-            self._slope = None
+            self._slope = float('inf')
         else:
             self._slope = (self.get_ending_point().get_y() - self.get_starting_point().get_y()) / (
                     self.get_ending_point().get_x() - self.get_starting_point().get_x())

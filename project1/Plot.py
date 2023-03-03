@@ -1,6 +1,5 @@
 from Point import Point
 from Line import Line
-import math
 import matplotlib.pyplot as plt
 import sys
 
@@ -20,7 +19,7 @@ class Plot:
     @staticmethod
     def get_plot_instance():
         if Plot._instance is None:
-            Plot()
+            Plot._instance = Plot()
         return Plot._instance
 
     # Accessors
@@ -59,7 +58,9 @@ class Plot:
             sys.exit(1)
 
     def add_point(self, point):
-        self.get_points().append(point)
+        tmp_points = self.get_points()
+        tmp_points.append(point)
+        self.set_points(tmp_points)
 
     def remove_point(self, point):
         self.get_points().remove(point)
