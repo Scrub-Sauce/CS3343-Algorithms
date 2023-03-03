@@ -1,5 +1,6 @@
 from Point import Point
 from Line import Line
+import math
 import matplotlib.pyplot as plt
 import sys
 
@@ -78,22 +79,16 @@ class Plot:
 
     # Create Scatter Plot
     def create_scatter_plot(self):
-        plt.scatter([point._x for point in self.get_points()], [point._y for point in self.get_points()])
-        plt.plot([point._x for point in self.get_convex_hull()], [point._y for point in self.get_convex_hull()])
+        plt.scatter([point.get_x() for point in self.get_points()], [point.get_y() for point in self.get_points()])
+        plt.plot([point.get_x() for point in self.get_convex_hull()],
+                 [point.get_y() for point in self.get_convex_hull()])
         plt.show()
-
-    # Find Convex Hull
-    def find_convex_hull(self):
-        return
 
     # String Override
     def __str__(self):
         ret = 'Scatter Plot\n----------------------------------\nPoints\n----------------------------------\n'
         for point in self.get_points():
             ret += "{}\n".format(point)
-        ret += "----------------------------------\nLines\n----------------------------------\n"
-        for line in self.get_lines():
-            ret += "{}\n".format(line)
         ret += "----------------------------------\nConvex Hull Points\n----------------------------------\n"
         for convex_hull in self.get_convex_hull():
             ret += "{}\n".format(convex_hull)
