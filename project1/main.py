@@ -16,9 +16,9 @@ def find_convex_hull(points):
             points[1].set_clock_next(points[0])
             points[1].set_counter_next(points[0])
 
-            tmp_scatter_plot = Plot.get_plot_instance()
-            tmp_scatter_plot.set_convex_hull(points)
-            tmp_scatter_plot.create_scatter_plot()
+            # tmp_scatter_plot = Plot.get_plot_instance()
+            # tmp_scatter_plot.set_convex_hull(points)
+            # tmp_scatter_plot.create_scatter_plot()
             return points
         elif n == 3:
             tmp_line = Line(points[0], points[1])
@@ -39,11 +39,11 @@ def find_convex_hull(points):
                 points[1].set_counter_next(points[0])
                 points[2].set_counter_next(points[1])
 
-            visual = points
-            visual.append(points[0])
-            tmp_scatter_plot = Plot.get_plot_instance()
-            tmp_scatter_plot.set_convex_hull(visual)
-            tmp_scatter_plot.create_scatter_plot()
+            # visual = points
+            # visual.append(points[0])
+            # tmp_scatter_plot = Plot.get_plot_instance()
+            # tmp_scatter_plot.set_convex_hull(visual)
+            # tmp_scatter_plot.create_scatter_plot()
             return points
 
     else:
@@ -74,11 +74,11 @@ def merge_convex_hull(left_convex, right_convex):
         merged_convex.append(current_point)
         current_point = current_point.get_counter_next()
 
-    visual = merged_convex
-    visual.append(starting_point)
-    tmp_scatter_plot = Plot.get_plot_instance()
-    tmp_scatter_plot.set_convex_hull(visual)
-    tmp_scatter_plot.create_scatter_plot()
+    # visual = merged_convex
+    # visual.append(starting_point)
+    # tmp_scatter_plot = Plot.get_plot_instance()
+    # tmp_scatter_plot.set_convex_hull(visual)
+    # tmp_scatter_plot.create_scatter_plot()
 
     merged_convex.sort(key=lambda p: p.get_x())
 
@@ -131,7 +131,7 @@ def find_upper_tan(left_convex, right_convex):
             right_tan_not_found = upper_tangent.point_above_line(upper_tangent.get_ending_point().get_clock_next())
 
         left_tan_not_found = upper_tangent.point_above_line(upper_tangent.get_starting_point().get_counter_next())
-        if not (left_tan_not_found and right_tan_not_found):
+        if (not left_tan_not_found) and (not right_tan_not_found):
             upper_tangent_found = True
 
     return upper_tangent
