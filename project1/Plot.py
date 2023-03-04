@@ -102,6 +102,9 @@ class Plot:
 
         return ordered_convex
 
+    def sort_points(self):
+        self.get_points().sort(key=lambda p: p.get_x())
+
     # String Override
     def __str__(self):
         ret = 'Scatter Plot\n----------------------------------\nPoints\n----------------------------------\n'

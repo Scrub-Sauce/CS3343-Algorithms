@@ -149,6 +149,7 @@ if __name__ == "__main__":
 
     scatter_plot = Plot.get_plot_instance()
     scatter_plot.populate(in_file)
+    scatter_plot.sort_points()
     scatter_plot.set_convex_hull(find_convex_hull(scatter_plot.get_points()))
     scatter_plot.create_scatter_plot()
     print(scatter_plot)
