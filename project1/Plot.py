@@ -102,8 +102,21 @@ class Plot:
 
         return ordered_convex
 
-    def sort_points(self):
-        self.get_points().sort(key=lambda p: p.get_x())
+    def generate_output(self):
+        convex_hull = self.order_convex_hull()
+        output = []
+
+        start = convex_hull[0]
+        output.append('{}\n'.format(self.get_points().index(start)))
+        current = start.get_counter_next()
+        while current != start:
+            output.append('{}\n'.format(self.get_points().index(current)))
+            current = current.get_counter_next()
+
+        outfile = open("output.txt", "w")
+        outfile.writelines(output)
+
+
 
     # String Override
     def __str__(self):
