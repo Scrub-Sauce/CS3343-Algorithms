@@ -81,9 +81,26 @@ class Plot:
     # Create Scatter Plot
     def create_scatter_plot(self):
         plt.scatter([point.get_x() for point in self.get_points()], [point.get_y() for point in self.get_points()])
-        plt.plot([point.get_x() for point in self.get_convex_hull()],
-                 [point.get_y() for point in self.get_convex_hull()])
+        ordered_convex = self.order_convex_hull()
+        plt.plot([point.get_x() for point in ordered_convex],
+                 [point.get_y() for point in ordered_convex])
         plt.show()
+
+    def order_convex_hull(self):
+        convex_hull = self.get_convex_hull()
+        ordered_convex = []
+
+        start = convex_hull[0]
+        ordered_convex.append(start)
+        current = start.get_counter_next()
+
+        while current != start:
+            ordered_convex.append(current)
+            current = current.get_counter_next()
+
+        ordered_convex.append(start)
+
+        return ordered_convex
 
     # String Override
     def __str__(self):
