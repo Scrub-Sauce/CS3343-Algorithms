@@ -15,6 +15,10 @@ def find_convex_hull(points):
 
             points[1].set_clock_next(points[0])
             points[1].set_counter_next(points[0])
+
+            tmp_scatter_plot = Plot.get_plot_instance()
+            tmp_scatter_plot.set_convex_hull(points)
+            tmp_scatter_plot.create_scatter_plot()
             return points
         elif n == 3:
             tmp_line = Line(points[0], points[1])
@@ -34,6 +38,12 @@ def find_convex_hull(points):
                 points[0].set_counter_next(points[2])
                 points[1].set_counter_next(points[0])
                 points[2].set_counter_next(points[1])
+
+            visual = points
+            visual.append(points[0])
+            tmp_scatter_plot = Plot.get_plot_instance()
+            tmp_scatter_plot.set_convex_hull(visual)
+            tmp_scatter_plot.create_scatter_plot()
             return points
 
     else:
