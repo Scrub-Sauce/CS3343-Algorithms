@@ -28,27 +28,19 @@ def find_convex_hull(points):
 
 
 def merge_convex_hull(left_convex, right_convex):
-
     lower_tangent = find_lower_hull(left_convex, right_convex)
     upper_tangent = find_upper_hull(left_convex, right_convex)
 
-    start = left_convex.index(upper_tangent.get_starting_point())
-    next_left_index = (start - 1) % len(left_convex)
-    while True:
-        if left_convex[next_left_index] == lower_tangent.get_starting_point():
-            break
-        left_convex.remove(left_convex[next_left_index])
-        next_left_index = (next_left_index - 1) % len(left_convex)
+    merged_convex = []
 
-    start = right_convex.index(upper_tangent.get_ending_point())
-    next_right_index = (start + 1) % len(right_convex)
-    while True:
-        if right_convex[next_right_index] == lower_tangent.get_ending_point():
-            break
-        right_convex.remove(right_convex[next_right_index])
-        next_right_index = (next_right_index + 1) % len(right_convex)
+    for left_point in range(0, left_convex.index(lower_tangent.get_starting_point()) + 1):
+        merged_convex.append(left_convex[left_point])
 
-    return left_convex + right_convex
+    for right_point in range(right_convex.index(lower_tangent.get_ending_point()),
+                             right_convex.index(upper_tangent.get_ending_point()) + 1):
+        merged_convex.append(right_convex[right_point])
+
+    return merged_convex
 
 
 def find_lower_hull(left_convex, right_convex):
@@ -56,21 +48,30 @@ def find_lower_hull(left_convex, right_convex):
     right_index = 0
     lower_tangent = Line(left_convex[left_index], right_convex[right_index])
 
-    lower_hull_found = False
+    lower_tangent_found = False
 
-    while not lower_hull_found:
+    while not lower_tangent_found:
+
         next_left_index = (left_index - 1) % len(left_convex)
-        while not lower_tangent.point_above_line(left_convex[next_left_index]):
-            lower_tangent.set_starting_point(left_convex[next_left_index])
-            next_left_index = (next_left_index - 1) % len(left_convex)
+        left_found = lower_tangent.point_above_line(left_convex[next_left_index])
+        while not left_found:
+            left_index = next_left_index
+            lower_tangent.set_starting_point(left_convex[left_index])
+            next_left_index = (left_index - 1) % len(left_convex)
+            left_found = lower_tangent.point_above_line(left_convex[next_left_index])
 
         next_right_index = (right_index + 1) % len(right_convex)
-        while not lower_tangent.point_above_line(right_convex[next_right_index]):
-            lower_tangent.set_ending_point(right_convex[next_right_index])
-            next_right_index = (next_right_index + 1) % len(right_convex)
+        right_found = lower_tangent.point_above_line(right_convex[next_right_index])
+        while not right_found:
+            right_index = next_right_index
+            lower_tangent.set_ending_point(right_convex[right_index])
+            next_right_index = (right_index + 1) % len(right_convex)
+            right_found = lower_tangent.point_above_line(right_convex[next_right_index])
 
-        if lower_tangent.point_above_line(left_convex[next_left_index]):
-            lower_hull_found = True
+        left_check = lower_tangent.point_above_line(left_convex[next_left_index])
+        right_check = lower_tangent.point_above_line(right_convex[next_right_index])
+        if left_check and right_check:
+            lower_tangent_found = True
 
     return lower_tangent
 
@@ -80,21 +81,30 @@ def find_upper_hull(left_convex, right_convex):
     right_index = 0
     upper_tangent = Line(left_convex[left_index], right_convex[right_index])
 
-    upper_hull_found = False
+    upper_tangent_found = False
 
-    while not upper_hull_found:
+    while not upper_tangent_found:
+
         next_left_index = (left_index + 1) % len(left_convex)
-        while upper_tangent.point_above_line(left_convex[next_left_index]):
-            upper_tangent.set_starting_point(left_convex[next_left_index])
-            next_left_index = (next_left_index + 1) % len(left_convex)
+        left_found = upper_tangent.point_above_line(left_convex[next_left_index])
+        while not left_found:
+            left_index = next_left_index
+            upper_tangent.set_starting_point(left_convex[left_index])
+            next_left_index = (left_index + 1) % len(left_convex)
+            left_found = upper_tangent.point_above_line(left_convex[next_left_index])
 
         next_right_index = (right_index - 1) % len(right_convex)
-        while upper_tangent.point_above_line(right_convex[next_right_index]):
-            upper_tangent.set_ending_point(right_convex[next_right_index])
-            next_right_index = (next_right_index - 1) % len(right_convex)
+        right_found = upper_tangent.point_above_line(right_convex[next_right_index])
+        while not right_found:
+            right_index = next_right_index
+            upper_tangent.set_ending_point(right_convex[right_index])
+            next_right_index = (right_index - 1) % len(right_convex)
+            right_found = upper_tangent.point_above_line(right_convex[next_right_index])
 
-        if not upper_tangent.point_above_line(left_convex[next_left_index]):
-            upper_hull_found = True
+        left_check = upper_tangent.point_above_line(left_convex[next_left_index])
+        right_check = upper_tangent.point_above_line(right_convex[next_right_index])
+        if left_check and right_check:
+            upper_tangent_found = True
 
     return upper_tangent
 
