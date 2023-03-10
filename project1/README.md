@@ -11,4 +11,9 @@ python main.py [filename]
 
 Special considerations:
 1. Currently, this does not account for multiple vertical points. It is assumed that the construction of a line from two points will always yield a slope that is not infinite.
+2. Assumes that the input.csv is already sorted before input.
+
+Dependencies:
+1. Programmed with Python 3.11
+2. Utilizes matplotlib package version 3.7
 
