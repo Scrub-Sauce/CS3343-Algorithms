@@ -1,15 +1,15 @@
 # Order Statistic Queries Project
-## CS 3343 - Algorithms
+### CS 3343 - Algorithms
 
-### Developers
-- Kyle Anderson
-- Ian Caldwell
+## Developers
+Kyle Anderson
+Ian Caldwell
 
-### Usage
+## Usage
 To execute using command line use the following syntax:
 [interpretter.exe] main.py [filename]
 
 example: *python3 main.py StarbucksData.csv*
 
-### Dependencies
+## Dependencies
 Pyhon 3.11 or later
