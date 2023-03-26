@@ -76,7 +76,7 @@ class Map:
                     if token[0] == 'Latitude':
                         continue
                     else:
-                        tmp_query = Query(float(token[0]), float(token[1]), token[2])
+                        tmp_query = Query(float(token[0]), float(token[1]), int(token[2]))
                         self.get_queries().append(tmp_query)
         except FileNotFoundError:
             sys.stderr.write('''Query file not found.
