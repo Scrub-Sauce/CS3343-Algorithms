@@ -3,7 +3,7 @@ import math
 
 class Store:
     # Constructor
-    def __init__(self, store_id, address, city, state, zip_code, long, lat):
+    def __init__(self, store_id, address, city, state, zip_code, lat, long):
         self.__store_id = store_id
         self.__address = address
         self.__city = city
@@ -64,7 +64,7 @@ class Store:
         self.__distance = distance
 
     # Helper Methods
-    def computer_distance(self, from_long, from_lat):
+    def computer_distance(self, from_lat, from_long):
         radius_of_earth_miles = 3958.8
 
         # Convert long and lat to radians for store
@@ -82,14 +82,13 @@ class Store:
 
     # String Override
     def __str__(self):
-        ret = f"""\nStore\n
-            -----------------------------------\n
-            Store ID: {self.get_store_id()}\n
-            Address: {self.get_address()}\n
-            City: {self.get_city()}\n
-            State: {self.get_state()}\n
-            Zip: {self.get_zip_code()}\n
-            Longitude: {self.get_long()}\n
-            Latitude: {self.get_lat()}\n
-            Distance: {self.get_distance()}\n"""
+        ret = f"""Store ID: {self.get_store_id()}
+-----------------------------------
+Address: {self.get_address()}
+City: {self.get_city()}
+State: {self.get_state()}
+Zip: {self.get_zip_code()}
+Latitude: {self.get_lat()}
+Longitude: {self.get_long()}
+Distance: {self.get_distance()}\n"""
         return ret
