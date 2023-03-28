@@ -55,14 +55,15 @@ class Map:
                 for row in rows:
                     line = row.strip('\n')
                     token = line.split(',')
-                    if token[0] == "Store ID":
-                        continue
-                    else:
+                    print(f"{token[5].lower()}")
+                    if token[5].lower() != 'latitude':
                         tmp_store = Store(token[0], token[1], token[2], token[3], token[4], float(token[5]), float(token[6]))
                         self.__locations.append(tmp_store)
+                    else:
+                        continue
+
         except FileNotFoundError:
-            sys.stderr.write('''Store Locations file not found. 
-            Please verify the filename is correct and it is in the same directory as main.py''')
+            sys.stderr.write('''Store Locations file not found. Please verify the filename is correct and it is in the same directory as main.py''')
             exit(1)
 
     def load_queries(self, queries_file):
@@ -79,8 +80,7 @@ class Map:
                         tmp_query = Query(float(token[0]), float(token[1]), int(token[2]))
                         self.get_queries().append(tmp_query)
         except FileNotFoundError:
-            sys.stderr.write('''Query file not found.
-            Please verify the filename is correct and it is in the same directory as main.py''')
+            sys.stderr.write('''Query file not found. Please verify the filename is correct and it is in the same directory as main.py''')
             exit(1)
 
     def __str__(self):
