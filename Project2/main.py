@@ -16,6 +16,8 @@ if __name__ == "__main__":
     store_map = Map.get_map_instance()
     store_map.load_locations(stores_file)
     store_map.load_queries(queries_file)
+    queries = store_map.get_queries()
+    store_map.set_current_query(queries[0])
     print(store_map)
     locations = store_map.get_locations()
     print(locations[0])

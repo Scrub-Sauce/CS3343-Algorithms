@@ -64,7 +64,7 @@ class Store:
         self.__distance = distance
 
     # Helper Methods
-    def computer_distance(self, from_lat, from_long):
+    def compute_distance(self, from_lat, from_long):
         radius_of_earth_miles = 3958.8
 
         # Convert long and lat to radians for store
