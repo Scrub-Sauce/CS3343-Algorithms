@@ -1,5 +1,6 @@
 from Store import Store
 from Query import Query
+import math
 import sys
 
 
@@ -93,6 +94,15 @@ class Map:
     def update_distance(self, query):
         for location in self.get_locations():
             location.compute_distance(query.get_lat(), query.get_long())
+
+    def swap_elements(self, index_a, index_b):
+        locations_list = self.get_locations()
+        tmp = locations_list[index_a]
+        locations_list[index_a] = locations_list[index_b]
+        locations_list[index_b] = tmp
+
+    # def rand_select(self, left_index, right_index, rank_searched):
+
 
     def __str__(self):
         ret = f'''This map is constructed using the {self.get_location_file()}\n-------------------------------------------------------------------\n'''
