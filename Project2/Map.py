@@ -61,13 +61,18 @@ class Map:
         try:
             with open(location_file) as infile:
                 rows = infile.readlines()
+                row_num = 0
                 for row in rows:
                     line = row.strip('\n')
                     token = line.split(',')
+                    if token[5] == 'AK':
+                        print(f"{row_num}")
                     if token[5].lower() != 'latitude':
                         tmp_store = Store(token[0], token[1], token[2], token[3], token[4], float(token[5]), float(token[6]))
                         self.__locations.append(tmp_store)
+                        row_num += 1
                     else:
+                        row_num += 1
                         continue
 
         except FileNotFoundError:
