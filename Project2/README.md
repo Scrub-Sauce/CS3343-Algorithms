@@ -18,4 +18,8 @@ example: *python3 main.py StarbucksData.csv*
 example: *python3 main.py StarbucksData.csv Queries.csv*
 
 ## Dependencies
-Pyhon 3.11 or later
+- Pyhon 3.11 or later
+- sys package
+- random package
+- csv package
+- math package

@@ -2,6 +2,7 @@ from Store import Store
 from Query import Query
 import random
 import sys
+import csv
 
 
 class Map:
@@ -56,24 +57,27 @@ class Map:
         self.__current_query = query
         self.update_distance(query)
 
+    def add_location(self, location):
+        self.get_locations().append(location)
+
+    def add_query(self, query):
+        self.get_queries().append(query)
+
+    def remove_query(self, query):
+        self.get_queries().remove(query)
+
+    def remove_location(self, location):
+        self.get_locations().remove(location)
+
     def load_locations(self, location_file):
         self.set_location_file(location_file)
         try:
-            with open(location_file) as infile:
-                rows = infile.readlines()
-                row_num = 0
-                for row in rows:
-                    line = row.strip('\n')
-                    token = line.split(',')
-                    if token[5] == 'AK':
-                        print(f"{row_num}")
-                    if token[5].lower() != 'latitude':
-                        tmp_store = Store(token[0], token[1], token[2], token[3], token[4], float(token[5]), float(token[6]))
-                        self.__locations.append(tmp_store)
-                        row_num += 1
-                    else:
-                        row_num += 1
-                        continue
+            with open(location_file) as csv_infile:
+                csv_reader = csv.reader(csv_infile)
+                for row in csv_reader:
+                    if row[5].lower() != 'latitude':
+                        tmp_store = Store(row[0], row[1], row[2], row[3], row[4], float(row[5]), float(row[6]))
+                        self.add_location(tmp_store)
 
         except FileNotFoundError:
             sys.stderr.write('''Store Locations file not found. Please verify the filename is correct and it is in the same directory as main.py''')
@@ -82,16 +86,13 @@ class Map:
     def load_queries(self, queries_file):
         self.set_query_file(queries_file)
         try:
-            with open(queries_file) as infile:
-                rows = infile.readlines()
-                for row in rows:
-                    line = row.strip('\n')
-                    token = line.split(',')
-                    if token[0].lower() == 'latitude':
-                        continue
-                    else:
-                        tmp_query = Query(float(token[0]), float(token[1]), int(token[2]))
-                        self.get_queries().append(tmp_query)
+            with open(queries_file) as csv_infile:
+                csv_reader = csv.reader(csv_infile)
+                for row in csv_reader:
+                    if row[0].lower() != 'latitude':
+                        tmp_query = Query(float(row[0]), float(row[1]), int(row[2]))
+                        self.add_query(tmp_query)
+
         except FileNotFoundError:
             sys.stderr.write('''Query file not found. Please verify the filename is correct and it is in the same directory as main.py''')
             exit(1)
