@@ -40,4 +40,7 @@ class Query:
         self.get_results().remove(location)
 
     def __str__(self):
-        return f'Query - Latitude: {self.get_lat()}, Longitude: {self.get_long()}, Desired Number: {self.get_desired_num_locations()}'
+        ret = f'The {self.get_desired_num_locations()} closest Stores to ({self.get_lat()}, {self.get_long()}):\n'
+        for result in self.get_results():
+            ret += f'{result}\n'
+        return ret

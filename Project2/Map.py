@@ -134,6 +134,29 @@ class Map:
 
         return left_position
 
+    def process_queries(self):
+        queries = self.get_queries()
+        locations = self.get_locations()
+        output = []
+
+        for query in queries:
+            self.set_current_query(query)
+
+            loc_num = query.get_desired_num_locations()
+
+            self.rand_select(0, (len(locations) - 1), loc_num)
+
+            for i in range(0, loc_num):
+                query.add_result(locations[i])
+
+            query.get_results().sort(key=lambda store: store.get_distance())
+
+            output.append(f'{query}\n')
+
+        out_file = open('Output.txt', 'w')
+        out_file.writelines(output)
+        out_file.close()
+
     def __str__(self):
         ret = f'''This map is constructed using the {self.get_location_file()}\n-------------------------------------------------------------------\n'''
         for location in self.get_locations():
