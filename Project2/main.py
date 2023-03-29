@@ -1,5 +1,6 @@
 import sys
 from Map import Map
+# from Query import Query
 
 # Main Function
 if __name__ == "__main__":
@@ -17,3 +18,12 @@ if __name__ == "__main__":
     store_map.load_locations(stores_file)
     store_map.load_queries(queries_file)
 
+    queries = store_map.get_queries()
+    locations = store_map.get_locations()
+
+    store_map.set_current_query(queries[0])
+
+    part = store_map.rand_select(0, (len(locations)-1), store_map.get_current_query().get_desired_num_locations())
+    print(part)
+    for i in range(0, store_map.get_current_query().get_desired_num_locations()):
+        print(locations[i])

@@ -1,6 +1,6 @@
 from Store import Store
 from Query import Query
-import math
+import random
 import sys
 
 
@@ -101,8 +101,38 @@ class Map:
         locations_list[index_a] = locations_list[index_b]
         locations_list[index_b] = tmp
 
-    # def rand_select(self, left_index, right_index, rank_searched):
+    def rand_select(self, left_bound, right_bound, desired_num_loc):
+        locations_list = self.get_locations()
+        desired_index = desired_num_loc - 1
+        if left_bound == right_bound:
+            return locations_list[left_bound]
+        else:
+            global_piv_index = self.rand_partition(left_bound, right_bound)
 
+            if desired_index == global_piv_index:
+                return locations_list[global_piv_index]
+            elif desired_index > global_piv_index:
+                return self.rand_select((global_piv_index + 1), right_bound, desired_num_loc)
+            elif desired_index < global_piv_index:
+                return self.rand_select(left_bound, (global_piv_index - 1), desired_num_loc)
+
+    def rand_partition(self, left_index, right_index):
+        locations_list = self.get_locations()
+
+        randomise_pivot_index = random.randint(left_index, right_index)
+        self.swap_elements(left_index, randomise_pivot_index)
+
+        pivot = locations_list[left_index].get_distance()
+        left_position = left_index
+
+        for i in range(left_index + 1, right_index + 1):
+            if locations_list[i].get_distance() <= pivot:
+                left_position += 1
+                self.swap_elements(left_position, i)
+
+        self.swap_elements(left_index, left_position)
+
+        return left_position
 
     def __str__(self):
         ret = f'''This map is constructed using the {self.get_location_file()}\n-------------------------------------------------------------------\n'''

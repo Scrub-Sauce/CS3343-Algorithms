@@ -82,13 +82,5 @@ class Store:
 
     # String Override
     def __str__(self):
-        ret = f"""Store ID: {self.get_store_id()}
------------------------------------
-Address: {self.get_address()}
-City: {self.get_city()}
-State: {self.get_state()}
-Zip: {self.get_zip_code()}
-Latitude: {self.get_lat()}
-Longitude: {self.get_long()}
-Distance: {self.get_distance()}\n"""
+        ret = f"""Store #{self.get_store_id()}. {self.get_address()}, {self.get_city()}, {self.get_zip_code()} - {self.get_distance(): .2f} miles."""
         return ret
