@@ -32,11 +32,11 @@ class InputString:
         ret = f'{self.get_input_text()} '
 
         if self.get_word_count() <= 0:
-            ret += 'cannot be split into AiW words.'
+            ret += 'cannot be split into AiW words.\n'
             return ret
         else:
             ret += f'can be split into {self.get_word_count()}: '
             for word in self.get_aIW_Words():
-                ret += f'{word} \n'
-
+                ret += f'{word} '
+            ret += '\n'
             return ret
